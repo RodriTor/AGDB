@@ -460,7 +460,7 @@ SELECT codigo_producto, nombre, cantidad_en_stock FROM producto
 20. Devuelve el producto que menos unidades tiene en stock.
 
   SELECT codigo_producto, nombre, cantidad_en_stock FROM producto
-    -> WHERE cantidad_en_stock = ( SELECT MIN(cantidad_en_stock) FROM producto );
+    -> WHERE cantidad_en_stock = ( SELECT MIN (cantidad_en_stock) FROM producto );
 +-----------------+---------------+-------------------+
 | codigo_producto | nombre        | cantidad_en_stock |
 +-----------------+---------------+-------------------+
