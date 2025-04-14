@@ -391,6 +391,15 @@ filtrada por los códigos que empiecen por OR.
 14. Lista las ventas totales de los productos que hayan facturado más de 3000 euros. Se mostrará
 el nombre, unidades vendidas, total facturado y total facturado con impuestos (21% IVA).
 15. Devuelve el nombre del cliente con mayor límite de crédito.
+
+select nombre_cliente, limite_credito from cliente order by limite_credito DESC limit 1;
++----------------+----------------+
+| nombre_cliente | limite_credito |
++----------------+----------------+
+| Tendo Garden   |      600000.00 |
++----------------+----------------+
+1 row in set (0.000 sec)
+ 
 16. Devuelve el nombre del producto que tenga el precio de venta más caro.
 17. Devuelve el nombre del producto del que se han vendido más unidades. (Tenga en cuenta que
 tendrá que calcular cuál es el número total de unidades que se han vendido de cada producto a
@@ -398,5 +407,63 @@ partir de los datos de la tabla detalle_pedido. Una vez que sepa cuál es el c�
 puede obtener su nombre fácilmente.)
 18. Los clientes cuyo límite de crédito sea mayor que los pagos que haya realizado. (Sin
 utilizar INNER JOIN).
+
+ 
 19. Devuelve el producto que más unidades tiene en stock.
+
+SELECT codigo_producto, nombre, cantidad_en_stock FROM producto
+    -> WHERE cantidad_en_stock = (
+    ->   SELECT MAX(cantidad_en_stock)
+    ->   FROM producto
+    -> );
++-----------------+---------------------------------+-------------------+
+| codigo_producto | nombre                          | cantidad_en_stock |
++-----------------+---------------------------------+-------------------+
+| FR-23           | Rosal copa                      |               400 |
+| FR-24           | Albaricoquero Corbato           |               400 |
+| FR-25           | Albaricoquero Moniqui           |               400 |
+| FR-26           | Albaricoquero Kurrot            |               400 |
+| FR-27           | Cerezo Burlat                   |               400 |
+| FR-28           | Cerezo Picota                   |               400 |
+| FR-29           | Cerezo Napole?n                 |               400 |
+| FR-30           | Ciruelo R. Claudia Verde        |               400 |
+| FR-31           | Ciruelo Santa Rosa              |               400 |
+| FR-32           | Ciruelo Golden Japan            |               400 |
+| FR-33           | Ciruelo Friar                   |               400 |
+| FR-34           | Ciruelo Reina C. De Ollins      |               400 |
+| FR-35           | Ciruelo Claudia Negra           |               400 |
+| FR-36           | Granado Mollar de Elche         |               400 |
+| FR-37           | Higuera Napolitana              |               400 |
+| FR-38           | Higuera Verdal                  |               400 |
+| FR-39           | Higuera Breva                   |               400 |
+| FR-40           | Manzano Starking Delicious      |               400 |
+| FR-41           | Manzano Reineta                 |               400 |
+| FR-42           | Manzano Golden Delicious        |               400 |
+| FR-43           | Membrillero Gigante de Wranja   |               400 |
+| FR-44           | Melocotonero Spring Crest       |               400 |
+| FR-45           | Melocotonero Amarillo de Agosto |               400 |
+| FR-46           | Melocotonero Federica           |               400 |
+| FR-47           | Melocotonero Paraguayo          |               400 |
+| FR-48           | Nogal Com?n                     |               400 |
+| FR-49           | Parra Uva de Mesa               |               400 |
+| FR-50           | Peral Castell                   |               400 |
+| FR-51           | Peral Williams                  |               400 |
+| FR-52           | Peral Conference                |               400 |
+| FR-53           | Peral Blanq. de Aranjuez        |               400 |
+| FR-54           | N?spero Tanaca                  |               400 |
+| FR-55           | Olivo Cipresino                 |               400 |
+| FR-56           | Nectarina                       |               400 |
+| FR-57           | Kaki Rojo Brillante             |               400 |
++-----------------+---------------------------------+-------------------+
+35 rows in set (0.001 sec)
+ 
 20. Devuelve el producto que menos unidades tiene en stock.
+
+  SELECT codigo_producto, nombre, cantidad_en_stock FROM producto
+    -> WHERE cantidad_en_stock = ( SELECT MIN(cantidad_en_stock) FROM producto );
++-----------------+---------------+-------------------+
+| codigo_producto | nombre        | cantidad_en_stock |
++-----------------+---------------+-------------------+
+| OR-214          | Brahea Armata |                 0 |
++-----------------+---------------+-------------------+
+1 row in set (0.001 sec)
