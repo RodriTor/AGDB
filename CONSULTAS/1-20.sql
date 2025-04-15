@@ -214,6 +214,38 @@ esperada.
  Utilizando la función ADDDATE
  Utilizando la función DATEDIFF */ 
 
+SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega FROM pedido WHERE fecha_entrega <= ADDDATE(fecha_esperada, INTERVAL -2 DAY);
++---------------+----------------+----------------+---------------+
+| codigo_pedido | codigo_cliente | fecha_esperada | fecha_entrega |
++---------------+----------------+----------------+---------------+
+|             2 |              5 | 2007-10-28     | 2007-10-26    |
+|            24 |             14 | 2008-07-31     | 2008-07-25    |
+|            30 |             13 | 2008-09-03     | 2008-08-31    |
+|            36 |             14 | 2008-12-15     | 2008-12-10    |
+|            53 |             13 | 2008-11-15     | 2008-11-09    |
+|            89 |             35 | 2007-12-13     | 2007-12-10    |
+|            91 |             27 | 2009-03-29     | 2009-03-27    |
+|            93 |             27 | 2009-05-30     | 2009-05-17    |
++---------------+----------------+----------------+---------------+
+8 rows in set (0.000 sec)
+
+SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega FROM pedido WHERE DATEDIFF(fecha_esperada, fecha_entrega) >= 2;
+
++---------------+----------------+----------------+---------------+
+| codigo_pedido | codigo_cliente | fecha_esperada | fecha_entrega |
++---------------+----------------+----------------+---------------+
+|             2 |              5 | 2007-10-28     | 2007-10-26    |
+|            24 |             14 | 2008-07-31     | 2008-07-25    |
+|            30 |             13 | 2008-09-03     | 2008-08-31    |
+|            36 |             14 | 2008-12-15     | 2008-12-10    |
+|            53 |             13 | 2008-11-15     | 2008-11-09    |
+|            89 |             35 | 2007-12-13     | 2007-12-10    |
+|            91 |             27 | 2009-03-29     | 2009-03-27    |
+|            93 |             27 | 2009-05-30     | 2009-05-17    |
++---------------+----------------+----------------+---------------+
+8 rows in set (0.000 sec)
+ 
+
 /* 11. Devuelve un listado de todos los pedidos que fueron rechazados en 2009. */
 
 select codigo_pedido, codigo_cliente, estado, fecha_pedido from pedido where estado = 'Rechazado' and year(fecha_pedido) = '2009';
