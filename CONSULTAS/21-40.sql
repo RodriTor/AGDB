@@ -1,6 +1,5 @@
 Consultas 21-40
 
-
 /* 1. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante. */
 
  select c.nombre_cliente, (e.nombre) as Nombre_Representante, (o.ciudad) as Ciudad_Representante from cliente c
@@ -551,8 +550,23 @@ select distinct (p.nombre) as Producto_Sin_Pedido from producto p left join deta
 /* 14. Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los
 representantes de ventas de algún cliente que haya realizado la compra de algún producto de la gama Frutales. */ 
 
+select * from oficina where codigo_oficina not in (
+ select codigo_oficina from empleado where codigo_empleado in (
+ select c.codigo_empleado_rep_ventas from cliente c join pedido pe 
+ on c.codigo_cliente = pe.codigo_cliente 
+ join detalle_pedido dp on pe.codigo_pedido = dp.codigo_pedido
+ join producto p on p.codigo_producto = dp.codigo_producto
+ where gama = 'Frutales'));
 
-
++----------------+---------+------------+------------+---------------+-----------------+--------------------------+------------------+
+| codigo_oficina | ciudad  | pais       | region     | codigo_postal | telefono        | linea_direccion1         | linea_direccion2 |
++----------------+---------+------------+------------+---------------+-----------------+--------------------------+------------------+
+| LON-UK         | Londres | Inglaterra | EMEA       | EC2N 1HN      | +44 20 78772041 | 52 Old Broad Street      | Ground Floor     |
+| PAR-FR         | Paris   | Francia    | EMEA       | 75017         | +33 14 723 4404 | 29 Rue Jouffroy dabbans |                  |
+| TOK-JP         | Tokyo   | Jap?n      | Chiyoda-Ku | 102-8578      | +81 33 224 5000 | 4-1 Kioicho              |                  |
++----------------+---------+------------+------------+---------------+-----------------+--------------------------+------------------+
+ 
+3 rows in set (0.001 sec)
 /* 15. Devuelve un listado con los clientes que han realizado algún pedido pero no han realizado
 ningún pago.*/ 
 
