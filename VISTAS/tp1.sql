@@ -50,3 +50,17 @@ select * from vista_genero_popular;
 1 row in set (0.001 sec)
 
 /* 5) */
+create view vista_ultimos_prestamos as select s.nombre, l.titulo, p.fecha_prestamo from socio s join prestamo p on p.id_socio = s.id_socio join libro l on p.id_libro = l.id_libro where p.fecha_prestamo =
+ (select max(fecha_prestamo) from prestamo pr where pr.id_socio = p.id_socio); 
+
+select * from vista_ultimos_prestamos;
++----------------+--------------------------+----------------+
+| nombre         | titulo                   | fecha_prestamo |
++----------------+--------------------------+----------------+
+| Ana Torres     | Rayuela                  | 2024-05-17     |
+| Juan Pérez     | Don Quijote de la Mancha | 2024-04-10     |
+| Laura Díaz     | 1984                     | 2024-03-10     |
+| Carlos Ramírez | 1984                     | 2024-04-01     |
+| María Gómez    | El Principito            | 2024-03-05     |
++----------------+--------------------------+----------------+
+5 rows in set (0.001 sec)
